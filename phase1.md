@@ -30,3 +30,19 @@ Tabs:
     Pre - Order: 
     Specials:
         This should be the partnered bars info they want to display on the app
+
+
+Tasks for this section:
+    Choose a database 
+    make a table 
+    set up diagram of infrastructure (THIS INCLUDES CLOUD INFRASTRUCTURE)
+    auth0 (frontend)
+    link auth0 to the database (table1)
+    set up api infrastructure (likely fastapi)
+
+One day sprint 6/19/2025:
+    choose a DataBase
+    make the tables 
+    where store for database (cloud?)
+    make auth0 account 
+    integrate auth0 into the UI
