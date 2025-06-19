@@ -1,6 +1,6 @@
-## - Here is a list of everything that need to be done write down all thoughts and ideas this will all be cleaned and made "nice" tomorrow.
+# - Here is a list of everything that need to be done write down all thoughts and ideas this will all be cleaned and made "nice" tomorrow.
 
-# - List 
+## - List 
 
 We need to figure out what infrasture we are doing:
     -First we need to know what we actually need(server, database, api, auth0, stripe, etc)
