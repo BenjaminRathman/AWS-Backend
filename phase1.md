@@ -16,3 +16,17 @@ guide: https://docs.google.com/spreadsheets/d/10e4lAYXwBNQuj3MjdLekqqpzzNDVwylKz
 -create table 1: account/personal info
 - integrate with auth0 somehow to get all data EXCEPT pw into table 1
 - 
+
+What should the end product look like on the user side:
+
+Features: 
+- See info on partnered bars 
+- Login (auth0)
+
+
+UI:
+Tabs:
+    Home page: 
+    Pre - Order: 
+    Specials:
+        This should be the partnered bars info they want to display on the app
