@@ -30,7 +30,15 @@ Add friends and send them friend requests by typing in their username
 You can see where your friends have pre-ordered beers and leave comments underneath these announcments ??
 You can gift your friends a pre-ordered beer/special 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+Vendor Side UI:
+When first creating an account, you can select either "I'm a customer" or "I'm a vendor"
+If you select "I'm a Vendor", we (somehow) link you up to your bar and give you a page where you can upload/update specials, and update prices for the pre-ordering service
+
+
 # auth0 for login -
+Handles creating an account with user inputting unique email, unique username, and password
+Auth0 shares with us each account's username and email, they keep PW in their own database
 
 # Stripe to handle transactions
 
