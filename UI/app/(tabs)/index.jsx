@@ -4,7 +4,7 @@ export default function Tab() {
 
   return (
     <View style={styles.container}>
-      <Text>Shane mundorf is a bad actor...</Text>
+      <Text>19 POUNDS OF STEAK</Text>
     </View>
   );
 }
