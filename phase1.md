@@ -41,7 +41,7 @@ Tasks for this section:
     set up api infrastructure (likely fastapi)
 
 One day sprint 6/19/2025:
-    choose a DataBase
+    ~~choose a DataBase~~
     make the tables 
     where store for database (cloud?)
     make auth0 account 
