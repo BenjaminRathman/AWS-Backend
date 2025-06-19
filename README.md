@@ -29,6 +29,7 @@ Page 3 (social tab)
 Add friends and send them friend requests by typing in their username
 You can see where your friends have pre-ordered beers and leave comments underneath these announcments ??
 You can gift your friends a pre-ordered beer/special 
+You can go to freind's accounts and push a button which sends a push notification to their device which says "XXXXX invited you to drink!"  ???
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 Vendor Side UI:
