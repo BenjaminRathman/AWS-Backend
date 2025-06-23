@@ -1,0 +1,89 @@
+The DataBase we are using - PostgreSQL
+Some service in aws will be running it this is tdb
+
+The Tables 
+
+The structure for columns/keys seen is : Name of variable, variable type 
+
+Table 1: 
+
+    Table Name: Users
+
+    Description: This table tracks the personal information of users signed up in the app. 
+
+    Primary_key: 
+        UserId, Guid(str)
+
+    Foreign_keys: 
+    
+    Setup:
+        - UserId, Guid(str)
+        - Email, str
+        - FirstName, str 
+        - LastName, str 
+        - DateOfBirth, Date
+        - TimeOfLastLogin, TIMESTAMPTZ
+
+Table 2: 
+
+    Table Name: Locations 
+
+    Description: Lists all the locations in the system and gives them a Id
+
+    Primary_key: 
+        LocationId, int 
+        
+    Foreign_keys: 
+    
+    Setup:
+        - LocationId, int 
+        - LocationName, str 
+
+Table 3:
+
+    Table Name: AllBars
+
+    Description: Lists all the bars in the system and gives them an id 
+
+    Primary_key: 
+        BarId, Guid(str) 
+        
+    Foreign_keys: 
+        LocationId, int - this comes from table 2's (Locations) Primarykey
+    Setup:
+        - BarId, Guid(str)
+        - LocationId, int 
+        - BarName, str
+
+Table 4:
+
+    Table Name: AllBars
+
+    Description: Lists all the bars in the system and gives them an id 
+
+    Primary_key: 
+        BarId, Guid(str) 
+        
+    Foreign_keys: 
+        LocationId, int - this comes from table 2's (Locations) Primary key
+    Setup:
+        - BarId, Guid(str)
+        - LocationId, int 
+        - BarName, str
+    
+Table 5:
+
+    Table Name: BarInfo
+
+    Description: All information that pertains to the bars in the system  
+
+    Primary_key: 
+        BarId, Guid(str) 
+        
+    Foreign_keys: 
+        LocationId, int - this comes from table 2's (Locations) Primarykey
+    Setup:
+        - BarId, Guid(str)
+        - LocationId, int 
+        - BarName, str
+        
