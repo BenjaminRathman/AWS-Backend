@@ -42,7 +42,9 @@ Tasks for this section:
 
 One day sprint 6/19/2025:
     ~~choose a DataBase~~
-    make the tables 
-    where store for database (cloud?)
-    make auth0 account 
-    integrate auth0 into the UI
+    ~~make the tables~~ 
+    
+
+Current sprint 6/22 -> 6/29
+    - Learn Docker 
+    - Finalize infrastructure 
