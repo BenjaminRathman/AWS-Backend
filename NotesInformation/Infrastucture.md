@@ -227,6 +227,6 @@ We then write java script to parse the JSON into how we need it
 
 SO 
 
-JS in APP makes API RQ -> API ENDPOINT hears it (because it is being run on ec2) -> This calls 2 more functions that are being hosted in ec2 one for query logic and another for database connection -> the result is then returned as json -> a js script parses the json to be used in the react native code 
+JS in APP makes API RQ -> API ENDPOINT hears it (because it is being run on ec2) -> This calls 2 more functions that are being hosted in ec2 one for query logic and another for database connection -> the database is actively listening because it is running on aws RDS the result is then returned as json -> a js script parses the json to be used in the react native code 
 
 The phone is essentially its own server and compiles all of the react code by itself so it can host the ui and make api requests 
