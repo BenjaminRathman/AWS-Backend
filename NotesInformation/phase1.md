@@ -47,4 +47,5 @@ One day sprint 6/19/2025:
 
 Current sprint 6/22 -> 6/29
     - Learn Docker 
-    - Finalize infrastructure 
+    ~- Finalize infrastructure~
+    - Make accounts for FastApi, PostGreSQL, AWS, Firbase 
