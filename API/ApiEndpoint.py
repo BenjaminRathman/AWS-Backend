@@ -5,10 +5,13 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-load_dotenv()
 
 app = FastAPI()
-firebase_creds_path = Path(os.getenv('FIREBASE_CREDENTIALS_PATH')).resolve()
+
+load_dotenv()
+base_dir = Path(__file__).resolve().parent
+relative_path = os.getenv('FIREBASE_CREDENTIALS_PATH')
+firebase_creds_path = (base_dir / relative_path).resolve()
 cred = credentials.Certificate(firebase_creds_path)
 firebase_admin.initialize_app(cred)
 
@@ -31,7 +34,6 @@ async def protected_route(token: dict = Depends(verify_token)):
 @app.get("/")
 def root():
     return {"Hello": "World"}
-
 
 
 #impement router for the api
