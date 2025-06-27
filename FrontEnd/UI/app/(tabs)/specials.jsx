@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import PagerView from 'react-native-pager-view';
+import React from 'react';
+import { View, Text, StyleSheet, Dimensions, FlatList } from 'react-native';
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -7,34 +7,36 @@ export default function SpecialsTab() {
   const screenWidth = Dimensions.get('window').width;
 
   return (
-    <PagerView style={styles.pagerView} initialPage={5}> {/* 5 = Friday */}
-      {DAYS.map((day, index) => (
-        <View key={index} style={styles.page}>
+    <FlatList
+      data={DAYS}
+      horizontal
+      pagingEnabled
+      keyExtractor={(item, index) => index.toString()}
+      showsHorizontalScrollIndicator={false}
+      renderItem={({ item }) => (
+        <View style={[styles.page, { width: screenWidth }]}>
           {/* Custom header for each day */}
           <View style={styles.header}>
-            <Text style={styles.headerText}>{day}</Text>
+            <Text style={styles.headerText}>{item}</Text>
           </View>
 
           {/* Unique content for each day */}
           <View style={styles.content}>
-            <Text>Specials for {day}</Text>
+            <Text>Specials for {item}</Text>
           </View>
         </View>
-      ))}
-    </PagerView>
+      )}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  pagerView: {
-    flex: 1,
-  },
   page: {
     flex: 1,
   },
   header: {
     backgroundColor: '#f2f2f2',
-    paddingTop: 50, // for iPhone notch
+    paddingTop: 50,
     paddingBottom: 16,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
