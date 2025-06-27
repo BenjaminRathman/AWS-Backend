@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 
 const specialsByDay = {
   Sunday: [
@@ -54,7 +54,8 @@ const specialsByDay = {
 };
 
 export default function SpecialsPage({ day }) {
-  const [expandedIndex, setExpandedIndex] = useState(null);
+    const screenWidth = Dimensions.get('window').width;
+    const [expandedIndex, setExpandedIndex] = useState(null);
 
   const toggleExpand = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
@@ -94,7 +95,7 @@ export default function SpecialsPage({ day }) {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   header: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#f6da0b',
     paddingTop: 50,
     paddingBottom: 16,
     paddingHorizontal: 20,
@@ -111,10 +112,10 @@ const styles = StyleSheet.create({
   },
   restaurantContainer: {
     marginBottom: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
   },
   tab: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#595959',
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 6,
@@ -124,6 +125,8 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: 18,
     fontWeight: '600',
+    color: 'white',
+    fontFamily: 'Roboto',
   },
   dropdownContent: {
     backgroundColor: '#f9f9f9',
