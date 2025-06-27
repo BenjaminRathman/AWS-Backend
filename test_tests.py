@@ -2,7 +2,9 @@ import pytest
 from fastapi.testclient import TestClient # type: ignore
 from main import app
 from unittest.mock import patch
-
+from sqlalchemy.exc import OperationalError
+from sqlalchemy import text
+from DATABASE.dbConnection import SessionLocal
 
 
 
@@ -68,4 +70,12 @@ def test_create_user_invalid_email(client):
         )
 
         assert response.status_code == 422
-        
+
+def test_direct_database_connection():
+    try:
+        db = SessionLocal()
+        db.execute(text("SELECT 1"))
+        db.close()
+        assert True
+    except OperationalError as e:
+        pytest.fail(f"Database connection failed: {e}")
