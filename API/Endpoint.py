@@ -1,12 +1,10 @@
-from fastapi import FastAPI, HTTPException, Request, Depends # type: ignore
+from fastapi import HTTPException, Request
 import firebase_admin
 from firebase_admin import credentials, auth
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from DATABASE.Models.UserModels import User
 
-app = FastAPI()
 
 load_dotenv()
 base_dir = Path(__file__).resolve().parent
@@ -27,16 +25,9 @@ async def verify_token(request: Request):
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
     
-@app.get("/protected")
-async def protected_route(token: dict = Depends(verify_token)):
-    return {"message": "Access granted", "token_data": token}
-
-@app.get("/")
-def root():
-    return {"Hello": "World"}
 
 
-#impement router for the api
+
 
 
 

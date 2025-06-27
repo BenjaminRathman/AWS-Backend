@@ -1,7 +1,12 @@
 import pytest
 from fastapi.testclient import TestClient # type: ignore
-from ApiEndpoint import app
+from Appz.API.main import app
 from unittest.mock import patch
+import sys
+from pathlib import Path
+
+
+sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 @pytest.fixture
 def client():
