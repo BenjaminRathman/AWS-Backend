@@ -48,5 +48,7 @@ firebase-debug.log
 *.sqlite
 *.sqlite3
 
-# Keys
-*.Keys/
+# Keys and Credentials
+Keys/
+**/Keys/
+*.json
