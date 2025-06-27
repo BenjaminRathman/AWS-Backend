@@ -9,3 +9,5 @@ class User(BaseModel):
     LastName: str
     DateOfBirth: date
     TimeOfLastLogin: datetime
+    class Config:
+        orm_mode = True

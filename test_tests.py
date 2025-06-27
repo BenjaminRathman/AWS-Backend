@@ -99,3 +99,13 @@ def test_direct_database_connection():
 
         assert response.status_code == 200
         assert response.json()["message"] == "User created"
+        
+def test_get_existing_user(client):
+    # Replace this with the actual UserId of a user already in your database
+    existing_user_id = "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+
+    response = client.get(f"/users/getUser/{existing_user_id}")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["UserId"] == existing_user_id
