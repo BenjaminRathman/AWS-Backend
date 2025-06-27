@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
-from Endpoint import verify_token
-from DATABASE.Models.UserModels import User
+from API.Endpoint import verify_token
+from API.PydanticModels.UserModels import User
 
 router = APIRouter(
     prefix="/users",
     tags=["Users"],
-    dependencies=[Depends(verify_token)]  
+    #dependencies=[Depends(verify_token)]  
 )
 
 @router.post("/createUser")

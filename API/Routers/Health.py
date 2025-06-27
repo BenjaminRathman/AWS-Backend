@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Depends
-from Endpoint import verify_token
+from API.Endpoint import verify_token
 
 router = APIRouter(
     prefix="/health",
-    tags=["Health"],
-    dependencies=[Depends(verify_token)]
+    tags=["Health"]
 )
 
 
