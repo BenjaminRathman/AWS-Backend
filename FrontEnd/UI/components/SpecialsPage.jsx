@@ -106,10 +106,10 @@ export default function SpecialsPage({ day }) {
 const styles = StyleSheet.create({
   container: { 
     flex: 1,
-    backgroundColor: '#f0f0f0'
+    backgroundColor: '#f0f0f0' //overall background color
   },
   header: {
-    backgroundColor: '#f6da0b',
+    backgroundColor: '#f6da0b', // top header color
     paddingTop: 50,
     paddingBottom: 16,
     paddingHorizontal: 20,

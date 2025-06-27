@@ -12,6 +12,14 @@ export default function TabLayout() {
         fontFamily: 'Roboto',
         fontWeight: 300,
       },
+      tabBarStyle: {
+        backgroundColor: '#f0f0f0',    // background color of tab
+        borderTopWidth: .5,   // divider line thickness
+        borderTopColor: '#000000', //color of divider line
+        paddingTop: 5,   // padding between top of divider and text
+        height: 95,      // how high up tab at bottom of screen rises
+      },
+      
     }}>
       <Tabs.Screen
         name="ordering"
