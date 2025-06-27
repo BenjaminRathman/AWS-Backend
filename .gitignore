@@ -49,4 +49,4 @@ firebase-debug.log
 *.sqlite3
 
 # Keys
-Keys/*.json
+.Keys/
