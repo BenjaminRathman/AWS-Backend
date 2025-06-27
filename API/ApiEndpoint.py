@@ -4,7 +4,7 @@ from firebase_admin import credentials, auth
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-
+from DATABASE.Models.UserModels import User
 
 app = FastAPI()
 
