@@ -1,4 +1,3 @@
-
 from sqlalchemy import Column, String, Date, TIMESTAMP, UUID
 import uuid
 from DATABASE.dbConnection import Base

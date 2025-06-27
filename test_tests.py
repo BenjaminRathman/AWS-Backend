@@ -79,3 +79,23 @@ def test_direct_database_connection():
         assert True
     except OperationalError as e:
         pytest.fail(f"Database connection failed: {e}")
+        
+#def test_create_user_success(client, valid_token):
+    with patch("firebase_admin.auth.verify_id_token") as mock_verify:
+        mock_verify.return_value = {"uid": "test_user"}
+
+        response = client.post(
+            "/users/createUser",
+            headers={"Authorization": f"Bearer {valid_token}"},
+            json={
+                "UserId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "Email": "user@example.com",
+                "FirstName": "Test",
+                "LastName": "User",
+                "DateOfBirth": "2000-01-01",
+                "TimeOfLastLogin": "2025-06-27T19:13:54.143Z"
+            }
+        )
+
+        assert response.status_code == 200
+        assert response.json()["message"] == "User created"
