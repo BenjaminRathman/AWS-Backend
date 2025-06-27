@@ -2,66 +2,76 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 
 const specialsByDay = {
-  Sunday: [
-    { name: 'Restaurant 1', specials: 'No specials today!' },
-    { name: 'Restaurant 2', specials: 'No specials today!' },
-    { name: 'Restaurant 3', specials: 'Half-price wings' },
-    { name: 'Restaurant 4', specials: 'Free drink with entree' },
-    { name: 'Restaurant 5', specials: '20% off desserts' },
-  ],
-  Monday: [
-    { name: 'Restaurant 1', specials: 'No specials today!' },
-    { name: 'Restaurant 2', specials: 'No specials today!' },
-    { name: 'Restaurant 3', specials: 'Half-price burgers' },
-    { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
-    { name: 'Restaurant 5', specials: '20% off all desserts' },
-  ],
-  Tuesday: [
-    { name: 'Restaurant 1', specials: 'Free salad with entree' },
-    { name: 'Restaurant 2', specials: '$3 Tacos' },
-    { name: 'Restaurant 3', specials: 'Half-price wings' },
-    { name: 'Restaurant 4', specials: 'Free drink with entree' },
-    { name: 'Restaurant 5', specials: '20% off desserts' },
-  ],
-  Wednesday: [
-    { name: 'Restaurant 1', specials: 'No specials today!' },
-    { name: 'Restaurant 2', specials: 'No specials today!' },
-    { name: 'Restaurant 3', specials: 'Half-price burgers' },
-    { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
-    { name: 'Restaurant 5', specials: '20% off all desserts' },
-  ],
-  Thursday: [
-    { name: 'Restaurant 1', specials: 'No specials today!' },
-    { name: 'Restaurant 2', specials: 'No specials today!' },
-    { name: 'Restaurant 3', specials: 'Half-price burgers' },
-    { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
-    { name: 'Restaurant 5', specials: '20% off all desserts' },
-  ],
-  Friday: [
-    { name: 'Restaurant 1', specials: 'No specials today!' },
-    { name: 'Restaurant 2', specials: 'No specials today!' },
-    { name: 'Restaurant 3', specials: 'Half-price burgers' },
-    { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
-    { name: 'Restaurant 5', specials: '20% off all desserts' },
-  ],
-  Saturday: [
-    { name: 'Restaurant 1', specials: 'No specials today!' },
-    { name: 'Restaurant 2', specials: 'No specials today!' },
-    { name: 'Restaurant 3', specials: 'Half-price burgers' },
-    { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
-    { name: 'Restaurant 5', specials: '20% off all desserts' },
-  ],
-};
+    Sunday: [
+        { name: 'Restaurant 1', specials: 'No specials today!' },
+        { name: 'Restaurant 2', specials: 'No specials today!' },
+        { name: 'Restaurant 3', specials: 'Half-price wings' },
+        { name: 'Restaurant 4', specials: 'Free drink with entree' },
+        { name: 'Restaurant 5', specials: '20% off desserts' },
+      ],
+      Monday: [
+        { name: 'Restaurant 1', specials: 'No specials today!' },
+        { name: 'Restaurant 2', specials: 'No specials today!' },
+        { name: 'Restaurant 3', specials: 'Half-price burgers' },
+        { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
+        { name: 'Restaurant 5', specials: '20% off all desserts' },
+      ],
+      Tuesday: [
+        { name: 'Restaurant 1', specials: 'Free salad with entree' },
+        { name: 'Restaurant 2', specials: '$3 Tacos' },
+        { name: 'Restaurant 3', specials: 'Half-price wings' },
+        { name: 'Restaurant 4', specials: 'Free drink with entree' },
+        { name: 'Restaurant 5', specials: '20% off desserts' },
+      ],
+      Wednesday: [
+        { name: 'Restaurant 1', specials: 'No specials today!' },
+        { name: 'Restaurant 2', specials: 'No specials today!' },
+        { name: 'Restaurant 3', specials: 'Half-price burgers' },
+        { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
+        { name: 'Restaurant 5', specials: '20% off all desserts' },
+      ],
+      Thursday: [
+        { name: 'Restaurant 1', specials: 'No specials today!' },
+        { name: 'Restaurant 2', specials: 'No specials today!' },
+        { name: 'Restaurant 3', specials: 'Half-price burgers' },
+        { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
+        { name: 'Restaurant 5', specials: '20% off all desserts' },
+      ],
+      Friday: [
+        { name: 'Restaurant 1', specials: 'No specials today!' },
+        { name: 'Restaurant 2', specials: 'No specials today!' },
+        { name: 'Restaurant 3', specials: 'Half-price burgers' },
+        { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
+        { name: 'Restaurant 5', specials: '20% off all desserts' },
+      ],
+      Saturday: [
+        { name: 'Restaurant 1', specials: 'No specials today!' },
+        { name: 'Restaurant 2', specials: 'No specials today!' },
+        { name: 'Restaurant 3', specials: 'Half-price burgers' },
+        { name: 'Restaurant 4', specials: 'Buy 1 get 1 free pizza' },
+        { name: 'Restaurant 5', specials: '20% off all desserts' },
+      ],
+    };
 
 export default function SpecialsPage({ day }) {
-    const screenWidth = Dimensions.get('window').width;
-    const [expandedIndex, setExpandedIndex] = useState(null);
-
-  const toggleExpand = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
+  const screenWidth = Dimensions.get('window').width;
 
   const restaurantsData = specialsByDay[day] || [];
+
+  // Initialize expandedIndexes with all indexes open by default
+  const [expandedIndexes, setExpandedIndexes] = useState(
+    restaurantsData.map((_, i) => i)
+  );
+
+  const toggleExpand = (index) => {
+    if (expandedIndexes.includes(index)) {
+      // If index is already open, remove it (close)
+      setExpandedIndexes(expandedIndexes.filter(i => i !== index));
+    } else {
+      // If index is closed, add it (open)
+      setExpandedIndexes([...expandedIndexes, index]);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -80,7 +90,8 @@ export default function SpecialsPage({ day }) {
               <Text style={styles.tabText}>{restaurant.name}</Text>
             </TouchableOpacity>
 
-            {expandedIndex === index && (
+            {/* Check if this index is in expandedIndexes array */}
+            {expandedIndexes.includes(index) && (
               <View style={styles.dropdownContent}>
                 <Text style={styles.specialsText}>{restaurant.specials}</Text>
               </View>
@@ -93,7 +104,10 @@ export default function SpecialsPage({ day }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { 
+    flex: 1,
+    backgroundColor: '#f0f0f0'
+  },
   header: {
     backgroundColor: '#f6da0b',
     paddingTop: 50,
@@ -115,7 +129,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   tab: {
-    backgroundColor: '#595959',
+    backgroundColor: '#595959', // color of each horizontal tab
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 6,
@@ -129,7 +143,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
   },
   dropdownContent: {
-    backgroundColor: '#f9f9f9',
     padding: 12,
     marginTop: 4,
     borderRadius: 6,
