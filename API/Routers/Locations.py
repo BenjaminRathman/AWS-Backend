@@ -46,3 +46,13 @@ async def get_location(LocationId: int, db: Session = Depends(get_db)):
 async def get_all_locations(db: Session = Depends(get_db)):
     locations = db.query(LocationDB).all()
     return locations
+
+@router.put("/updateLocation/{LocationId}", response_model=Location)
+async def update_location(LocationId: int, location: Location, db: Session = Depends(get_db)):
+    location_to_update = db.query(LocationDB).filter(LocationDB.LocationId == LocationId).first()
+    if not location_to_update:
+        raise HTTPException(status_code=404, detail="Location not found")
+    location_to_update.LocationName = location.LocationName
+    db.commit()
+    db.refresh(location_to_update)
+    return location_to_update

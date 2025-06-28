@@ -155,3 +155,17 @@ def test_get_all_locations(client):
         location = response.json()[0]
         assert "LocationId" in location
         assert "LocationName" in location
+        
+def test_update_location(client):
+    location_id_to_update = 1
+    new_location_name = "Updated Park"
+
+    response = client.put(
+        f"/locations/updateLocation/{location_id_to_update}",
+        json={"LocationId": location_id_to_update, "LocationName": new_location_name}
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["LocationId"] == location_id_to_update
+    assert data["LocationName"] == new_location_name
