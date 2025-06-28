@@ -36,7 +36,6 @@ const rectangleTexts = [
   'Bar 5',
 ];
 
-// 1. Add custom texts for each textbox
 const customBoxTexts = [
   'Custom info for Tellus 360',
   'Details about Bar 2 here',
@@ -48,8 +47,6 @@ const customBoxTexts = [
 export default function Tab() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-
-  const [activeIndex, setActiveIndex] = useState(null);
 
   return (
     <View style={styles.container}>
@@ -68,13 +65,11 @@ export default function Tab() {
         {images.map((imageSrc, index) => (
           <RectangleItem
             key={index}
-            index={index}
-            isActive={activeIndex === index}
-            setActiveIndex={setActiveIndex}
+            barId={['tellus360', 'bar2', 'bar3', 'bar4', 'bar5'][index]}
             imageSrc={imageSrc}
             imageSize={imageSizes[index]}
             text={rectangleTexts[index]}
-            customBoxText={customBoxTexts[index]} // Pass the custom text
+            customBoxText={customBoxTexts[index]}
           />
         ))}
       </ScrollView>
@@ -83,29 +78,39 @@ export default function Tab() {
 }
 
 function RectangleItem({
-  index,
+  barId,
   imageSrc,
   imageSize,
   text,
-  isActive,
-  setActiveIndex,
   customBoxText,
-  customBoxWidth = 200,      // customizable width of textbox in rectangle container
-  customBoxHeight = 180,     // customizable height of textbox in rectangle container
-  customBoxBackground = '#e0e0e0',  // customizable bg color
+  customBoxWidth = 200,
+  customBoxHeight = 180,
+  customBoxBackground = '#e0e0e0',
 }) {
   const slideAnim = useRef(new Animated.Value(0)).current;
-
-  React.useEffect(() => {
-    Animated.timing(slideAnim, {
-      toValue: isActive ? 1 : 0,
-      duration: isActive ? 500 : 600,
-      useNativeDriver: false,
-    }).start();
-  }, [isActive]);
+  const boxOpacityAnim = useRef(new Animated.Value(0)).current;
+  const [isRevealed, setIsRevealed] = useState(false);
+  const router = useRouter();
 
   const handlePress = () => {
-    setActiveIndex(index);
+    if (!isRevealed) {
+      // First press: slide and reveal text box
+      Animated.timing(slideAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: false,
+      }).start(() => {
+        setIsRevealed(true);
+        Animated.timing(boxOpacityAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: false,
+        }).start();
+      });
+    } else {
+      // Always allow navigation
+      router.push(`/bars/${barId}`);
+    }
   };
 
   const imageTranslate = slideAnim.interpolate({
@@ -114,14 +119,8 @@ function RectangleItem({
   });
 
   const textOpacity = slideAnim.interpolate({
-    inputRange: [0, 0.3],
+    inputRange: [0, 0.19],
     outputRange: [1, 0],
-    extrapolate: 'clamp',
-  });
-
-  const boxOpacity = slideAnim.interpolate({
-    inputRange: [0.7, 1],
-    outputRange: [0, 1],
     extrapolate: 'clamp',
   });
 
@@ -130,13 +129,13 @@ function RectangleItem({
       onPress={handlePress}
       style={[styles.rectangle, { width: '105%', height: 200, paddingHorizontal: 5 }]}
     >
-      {/* Custom box absolutely positioned at left, vertically centered */}
-      {isActive && (
+      {/* Revealed Text Box */}
+      {isRevealed && (
         <Animated.View
           style={[
             styles.customBox,
             {
-              opacity: boxOpacity,
+              opacity: boxOpacityAnim,
               width: customBoxWidth,
               height: customBoxHeight,
               backgroundColor: customBoxBackground,
@@ -153,6 +152,7 @@ function RectangleItem({
         </Animated.View>
       )}
 
+      {/* Sliding Image */}
       <Animated.View style={{ transform: [{ translateX: imageTranslate }] }}>
         <Image
           source={imageSrc}
@@ -164,6 +164,7 @@ function RectangleItem({
         />
       </Animated.View>
 
+      {/* Text (fades out as image slides) */}
       <View style={styles.contentArea}>
         <Animated.Text style={[styles.rectangleText, { opacity: textOpacity }]}>
           {text}
@@ -174,13 +175,13 @@ function RectangleItem({
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#333333' }, //background color of index
+  container: { flex: 1, backgroundColor: '#333333' },
   header: {
     height: 80,
     paddingHorizontal: 20,
     justifyContent: 'center',
     position: 'relative',
-    backgroundColor: '#333333', 
+    backgroundColor: '#333333',
     borderBottomColor: '#ccc',
     borderBottomWidth: 0,
     marginTop: 40,
@@ -201,13 +202,12 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
   },
   scrollContent: {
-    paddingTop: 20,
+    paddingTop: 25,
     paddingHorizontal: 20,
-    paddingBottom: 80, // space from very bottom of page to bottom entity
+    paddingBottom: 80,
     alignItems: 'center',
     gap: 15,
   },
-
   rectangle: {
     flexDirection: 'row',
     borderRadius: 8,
@@ -219,14 +219,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 4,
     alignItems: 'center',
-    position: 'relative',  // <-- added to allow absolute children positioning
+    position: 'relative',
   },
   contentArea: { flex: 1, padding: 12, justifyContent: 'center' },
   rectangleText: { fontSize: 35, fontWeight: '500', color: '#333' },
-
-  // Style for the custom textbox
   customBox: {
-    // marginTop: 20,  <-- removed marginTop so vertical centering works correctly
     padding: 12,
     backgroundColor: '#e0e0e0',
     borderRadius: 8,
