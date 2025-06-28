@@ -41,3 +41,8 @@ async def get_location(LocationId: int, db: Session = Depends(get_db)):
     if not location:
         raise HTTPException(status_code=404, detail="Location not found")
     return location
+
+@router.get("/allLocations", response_model=list[Location]) #not tested yet
+async def get_all_locations(db: Session = Depends(get_db)):
+    locations = db.query(LocationDB).all()
+    return locations

@@ -143,3 +143,15 @@ def test_get_existing_location(client):
     data = response.json()
     assert data["LocationId"] == existing_location_id
     assert "LocationName" in data
+    
+    
+def test_get_all_locations(client):
+    response = client.get("/locations/allLocations")  # adjust path if you use a prefix
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    
+    # Optional: if you expect at least one location already in the DB
+    if response.json():
+        location = response.json()[0]
+        assert "LocationId" in location
+        assert "LocationName" in location
