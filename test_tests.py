@@ -225,11 +225,18 @@ def test_delete_bar(client):
     
 def test_create_bar_info(client):
     payload = {
-        "BarId": "123e4567-e89b-12d3-a456-426614174000",
+        "BarId": "323e4567-e89b-12d3-a456-426614174000",
         "LocationId": 1,
-        "BarName": "Test2 Bar",
-        "Description": "Test2 Description",
-        "WeeklySpecials": "Test2 Weekly Specials"
+        "BarName": "Test3 Bar",
+        "Description": "Test3 Description",
+        "WeeklySpecials": {"Monday": "Test3 Weekly Specials",
+                           "Tuesday": "Test3 Weekly Specials",
+                           "Wednesday": "Test3 Weekly Specials",
+                           "Thursday": "Test3 Weekly Specials",
+                           "Friday": "Test3 Weekly Specials",
+                           "Saturday": "Test3 Weekly Specials",
+                           "Sunday": "Test3 Weekly Specials"
+                           }
     }
 
     response = client.post("/bars/createBarInfo", json=payload)
@@ -244,7 +251,7 @@ def test_create_bar_info(client):
     assert data["WeeklySpecials"] == payload["WeeklySpecials"]
 
 def test_get_existing_bar_info(client):
-    existing_bar_id = "223e4567-e89b-12d3-a456-426614174000"
+    existing_bar_id = "323e4567-e89b-12d3-a456-426614174000"
 
     response = client.get(f"/bars/getBarInfo/{existing_bar_id}")
 
@@ -270,8 +277,15 @@ def test_get_all_bar_info(client):
         assert "WeeklySpecials" in bar_info
         
 def test_update_bar_info(client):
-    bar_id_to_update = "223e4567-e89b-12d3-a456-426614174000"
-    new_weekly_specials = "Updated Weekly Specials"
+    bar_id_to_update = "323e4567-e89b-12d3-a456-426614174000"
+    new_weekly_specials = {"Monday": "Test2 Weekly Specials",
+                           "Tuesday": "Test3 Weekly Specials",
+                           "Wednesday": "Test2 Weekly Specials",
+                           "Thursday": "Test2 Weekly Specials",
+                           "Friday": "Test2 Weekly Specials",
+                           "Saturday": "Test2 Weekly Specials",
+                           "Sunday": "Test2 Weekly Specials"
+                           }
 
     response = client.put(f"/bars/updateBarInfo/{bar_id_to_update}", json={
         "BarId": bar_id_to_update,
@@ -282,7 +296,7 @@ def test_update_bar_info(client):
     })
 
     print("Status:", response.status_code)
-    print("Text:", response.text)
+    print("Text:", response.text)  
 
     assert response.status_code == 200
     data = response.json()
@@ -290,7 +304,7 @@ def test_update_bar_info(client):
     assert data["WeeklySpecials"] == new_weekly_specials
     
 def test_delete_bar_info(client):
-    bar_id_to_delete = "223e4567-e89b-12d3-a456-426614174000"
+    bar_id_to_delete = "123e4567-e89b-12d3-a456-426614174000"
     
     response = client.delete(f"/bars/deleteBarInfo/{bar_id_to_delete}")
     

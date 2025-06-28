@@ -15,6 +15,6 @@ class AllBarsInfo(BaseModel):
     LocationId: int
     BarName: str
     Description: Optional[str] = None
-    WeeklySpecials: Optional[str] = None
+    WeeklySpecials: Optional[dict[str, str]] = None
 
     model_config = ConfigDict(from_attributes=True)
