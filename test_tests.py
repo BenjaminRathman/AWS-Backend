@@ -181,9 +181,9 @@ def test_delete_location(client):
 
 def test_create_bar(client):
     payload = {
-        "BarId": "123e4567-e89b-12d3-a456-426614174000",
-        "LocationId": 1,
-        "BarName": "Test Bar"
+        "BarId": "223e4567-e89b-12d3-a456-426614174000",
+        "LocationId": 2,
+        "BarName": "Test2 Bar"
     }
 
     response = client.post("/bars/createBar", json=payload)
@@ -194,4 +194,33 @@ def test_create_bar(client):
     assert data["BarId"] == payload["BarId"]
     assert data["LocationId"] == payload["LocationId"]
     assert data["BarName"] == payload["BarName"]
+    
+def test_get_existing_bar(client):
+    existing_bar_id = "123e4567-e89b-12d3-a456-426614174000"
+
+    response = client.get(f"/bars/getBar/{existing_bar_id}")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["BarId"] == existing_bar_id
+    assert "LocationId" in data
+    assert "BarName" in data
+    
+def test_get_all_bars(client):
+    response = client.get("/bars/allBars")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    
+    if response.json():
+        bar = response.json()[0]
+        assert "BarId" in bar
+        
+def test_delete_bar(client):
+    bar_id_to_delete = "123e4567-e89b-12d3-a456-426614174000"
+    
+    response = client.delete(f"/bars/deleteBar/{bar_id_to_delete}")
+    
+    assert response.status_code == 200
+    assert response.json()["BarId"] == bar_id_to_delete
+    
     
