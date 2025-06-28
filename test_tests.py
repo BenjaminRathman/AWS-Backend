@@ -32,26 +32,7 @@ def test_protected_route_with_valid_token(client, valid_token):
         assert response.status_code == 200
          # adjust to your actual response
          
-def test_create_user(client):
-    with patch("firebase_admin.auth.verify_id_token") as mock_verify:
-        mock_verify.return_value = {"uid": "test_user"}
 
-        response = client.post(
-            "/users/createUser",
-            headers={"Authorization": f"Bearer {valid_token}"},
-            json={
-                "UserId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                "Email": "user@example.com",
-                "FirstName": "string",
-                "LastName": "string",
-                "DateOfBirth": "2025-06-27",
-                "TimeOfLastLogin": "2025-06-27T19:13:54.143Z"
-            }
-        )
-
-        assert response.status_code == 200
-        assert response.json()["message"] == "User created"
-    
 def test_create_user_invalid_email(client):
     with patch("firebase_admin.auth.verify_id_token") as mock_verify:
         mock_verify.return_value = {"uid": "test_user"}
@@ -71,7 +52,7 @@ def test_create_user_invalid_email(client):
 
         assert response.status_code == 422
 
-def test_direct_database_connection():
+def test_direct_database_connection(client):
     try:
         db = SessionLocal()
         db.execute(text("SELECT 1"))
@@ -80,7 +61,7 @@ def test_direct_database_connection():
     except OperationalError as e:
         pytest.fail(f"Database connection failed: {e}")
         
-#def test_create_user_success(client, valid_token):
+def test_create_user_success(client, valid_token):
     with patch("firebase_admin.auth.verify_id_token") as mock_verify:
         mock_verify.return_value = {"uid": "test_user"}
 
@@ -109,3 +90,16 @@ def test_get_existing_user(client):
     assert response.status_code == 200
     data = response.json()
     assert data["UserId"] == existing_user_id
+    
+def test_update_user_last_login(client):
+    # Replace with an actual existing UserId in your test DB
+    existing_user_id = "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    
+    response = client.put(f"/users/updateUserLastLogin/{existing_user_id}")
+
+    assert response.status_code == 200
+    data = response.json()
+    
+    assert data["UserId"] == existing_user_id
+    assert "TimeOfLastLogin" in data
+    assert data["TimeOfLastLogin"] is not None
