@@ -77,9 +77,11 @@ def test_create_user_success(client, valid_token):
                 "TimeOfLastLogin": "2025-06-27T19:13:54.143Z"
             }
         )
+        
+        data = response.json()
 
         assert response.status_code == 200
-        assert response.json()["message"] == "User created"
+        assert data["UserId"] == "4fa85f64-5717-4562-b3fc-2c963f66afa6"
         
 def test_get_existing_user(client):
     # Replace this with the actual UserId of a user already in your database
@@ -112,3 +114,32 @@ def test_delete_user(client):
     
     assert response.status_code == 200
     assert response.json()["UserId"] == user_id_to_delete
+    
+    
+
+def test_create_location(client):
+    payload = {
+        "LocationId": 1,
+        "LocationName": "Downtown Park"
+    }
+
+    response = client.post("/locations/createLocation", json=payload)
+
+    assert response.status_code == 200
+    data = response.json()
+
+    assert "LocationId" in data
+    assert data["LocationName"] == "Downtown Park"
+    
+    
+    
+def test_get_existing_location(client):
+    # Use a LocationId that you know exists in the database
+    existing_location_id = 1
+
+    response = client.get(f"/locations/getLocation/{existing_location_id}")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["LocationId"] == existing_location_id
+    assert "LocationName" in data

@@ -18,7 +18,7 @@ async def create_user(user: User, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"message": "User created", "user_data": user}
+    return new_user
 
 @router.get("/getUser/{UserId}", response_model=User)
 async def get_user(UserId: str, db: Session = Depends(get_db)):
