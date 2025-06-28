@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from API.Endpoint import verify_token
-from API.PydanticModels.LocationModels import Location
+from API.PydanticModels.LocationModels import Location, AllBars
 from DATABASE.dbConnection import get_db
 from sqlalchemy.orm import Session
-from DATABASE.SqlaModels.LocationsDb import LocationDB
+from DATABASE.SqlaModels.LocationsDb import LocationDB, AllBarsDB
 from datetime import datetime, timezone
 
 router = APIRouter(
@@ -12,20 +12,8 @@ router = APIRouter(
     #dependencies=[Depends(verify_token)]  
 )
 
-"""
-what to implement:
+#Locations
 
-POST /locations/createLocation – Add a new location
-
-GET /locations/getLocation/{LocationId} – Get one location
-
-GET /locations/allLocations – Get all locations
-
-PUT /locations/updateLocation/{LocationId} – Update a location name
-
-DELETE /locations/deleteLocation/{LocationId} – Remove a location
-    
-"""
 @router.post("/createLocation")
 async def create_location(location: Location, db: Session = Depends(get_db)):
     new_location = LocationDB(**location.model_dump())
