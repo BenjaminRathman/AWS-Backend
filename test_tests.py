@@ -225,8 +225,8 @@ def test_delete_bar(client):
     
 def test_create_bar_info(client):
     payload = {
-        "BarId": "223e4567-e89b-12d3-a456-426614174000",
-        "LocationId": 2,
+        "BarId": "123e4567-e89b-12d3-a456-426614174000",
+        "LocationId": 1,
         "BarName": "Test2 Bar",
         "Description": "Test2 Description",
         "WeeklySpecials": "Test2 Weekly Specials"
@@ -269,3 +269,33 @@ def test_get_all_bar_info(client):
         assert "Description" in bar_info
         assert "WeeklySpecials" in bar_info
         
+def test_update_bar_info(client):
+    bar_id_to_update = "223e4567-e89b-12d3-a456-426614174000"
+    new_weekly_specials = "Updated Weekly Specials"
+
+    response = client.put(f"/bars/updateBarInfo/{bar_id_to_update}", json={
+        "BarId": bar_id_to_update,
+        "LocationId": 2,
+        "BarName": "Test2 Bar",
+        "WeeklySpecials": new_weekly_specials,
+        "Description": "Test2 Description"
+    })
+
+    print("Status:", response.status_code)
+    print("Text:", response.text)
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["BarId"] == bar_id_to_update
+    assert data["WeeklySpecials"] == new_weekly_specials
+    
+def test_delete_bar_info(client):
+    bar_id_to_delete = "223e4567-e89b-12d3-a456-426614174000"
+    
+    response = client.delete(f"/bars/deleteBarInfo/{bar_id_to_delete}")
+    
+    assert response.status_code == 200
+    assert response.json()["BarId"] == bar_id_to_delete
+    
+    
+    

@@ -63,3 +63,24 @@ async def get_bar_info(BarId: UUID, db: Session = Depends(get_db)):
 async def get_all_bar_info(db: Session = Depends(get_db)):
     bar_info = db.query(AllBarsInfoDB).all()
     return bar_info
+
+@router.put("/updateBarInfo/{BarId}", response_model=AllBarsInfo)
+async def update_bar_info(BarId: UUID, bar_info: AllBarsInfo, db: Session = Depends(get_db)):
+    bar_info_to_update = db.query(AllBarsInfoDB).filter(AllBarsInfoDB.BarId == BarId).first()
+    if not bar_info_to_update:
+        raise HTTPException(status_code=404, detail="Bar info not found")
+    
+    bar_info_to_update.WeeklySpecials = bar_info.WeeklySpecials
+    db.commit()
+    db.refresh(bar_info_to_update)
+    return bar_info_to_update
+
+
+@router.delete("/deleteBarInfo/{BarId}", response_model=AllBarsInfo)
+async def delete_bar_info(BarId: UUID, db: Session = Depends(get_db)):
+    bar_info_to_delete = db.query(AllBarsInfoDB).filter(AllBarsInfoDB.BarId == BarId).first()
+    if not bar_info_to_delete:
+        raise HTTPException(status_code=404, detail="Bar info not found")
+    db.delete(bar_info_to_delete)
+    db.commit()
+    return bar_info_to_delete
