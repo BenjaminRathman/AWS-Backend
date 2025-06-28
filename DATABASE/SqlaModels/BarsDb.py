@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, UUID, ForeignKey
+from sqlalchemy.dialects.postgresql import JSONB
 from DATABASE.dbConnection import Base 
 
 class AllBarsDB(Base):
@@ -15,4 +16,4 @@ class AllBarsInfoDB(Base):
     LocationId = Column(Integer, ForeignKey("Locations.LocationId"), nullable=False)
     BarName = Column(String, nullable=False)
     Description = Column(String, nullable=True)
-    WeeklySpecials = Column(String, nullable=True)
+    WeeklySpecials = Column(JSONB, nullable=True)

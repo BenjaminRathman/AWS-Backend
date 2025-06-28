@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, UUID, ForeignKey
+from sqlalchemy import Column, Integer, String
 from DATABASE.dbConnection import Base 
 
 class LocationDB(Base):

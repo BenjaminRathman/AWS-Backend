@@ -4,7 +4,6 @@ from API.PydanticModels.BarsModels import AllBars, AllBarsInfo
 from DATABASE.dbConnection import get_db
 from sqlalchemy.orm import Session
 from DATABASE.SqlaModels.BarsDb import AllBarsDB, AllBarsInfoDB
-from datetime import datetime, timezone
 from uuid import UUID
 
 router = APIRouter(
