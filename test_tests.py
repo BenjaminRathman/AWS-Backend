@@ -69,7 +69,7 @@ def test_create_user_success(client, valid_token):
             "/users/createUser",
             headers={"Authorization": f"Bearer {valid_token}"},
             json={
-                "UserId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "UserId": "4fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "Email": "user@example.com",
                 "FirstName": "Test",
                 "LastName": "User",
@@ -103,3 +103,12 @@ def test_update_user_last_login(client):
     assert data["UserId"] == existing_user_id
     assert "TimeOfLastLogin" in data
     assert data["TimeOfLastLogin"] is not None
+    
+def test_delete_user(client):
+    # Replace with an actual existing UserId in your test DB
+    user_id_to_delete = "4fa85f64-5717-4562-b3fc-2c963f66afa6"
+    
+    response = client.delete(f"/users/deleteUser/{user_id_to_delete}")
+    
+    assert response.status_code == 200
+    assert response.json()["UserId"] == user_id_to_delete

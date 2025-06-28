@@ -36,3 +36,12 @@ async def update_user(UserId: str, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(user_to_update)
     return user_to_update
+
+@router.delete("/deleteUser/{UserId}", response_model=User)
+async def delete_user(UserId: str, db: Session = Depends(get_db)):
+    user_to_delete = db.query(UserDB).filter(UserDB.UserId == UserId).first()
+    if not user_to_delete:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(user_to_delete)
+    db.commit()
+    return user_to_delete
