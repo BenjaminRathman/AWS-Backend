@@ -223,4 +223,23 @@ def test_delete_bar(client):
     assert response.status_code == 200
     assert response.json()["BarId"] == bar_id_to_delete
     
+def test_create_bar_info(client):
+    payload = {
+        "BarId": "223e4567-e89b-12d3-a456-426614174000",
+        "LocationId": 2,
+        "BarName": "Test2 Bar",
+        "Description": "Test2 Description",
+        "WeeklySpecials": "Test2 Weekly Specials"
+    }
+
+    response = client.post("/bars/createBarInfo", json=payload)
+
+    assert response.status_code == 200
+    data = response.json()
+
+    assert data["BarId"] == payload["BarId"]
+    assert data["LocationId"] == payload["LocationId"]
+    assert data["BarName"] == payload["BarName"]
+    assert data["Description"] == payload["Description"]
+    assert data["WeeklySpecials"] == payload["WeeklySpecials"]
     

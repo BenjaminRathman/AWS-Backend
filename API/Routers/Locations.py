@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from API.Endpoint import verify_token
-from API.PydanticModels.LocationModels import Location, AllBars
+from API.PydanticModels.LocationModels import Location
 from DATABASE.dbConnection import get_db
 from sqlalchemy.orm import Session
-from DATABASE.SqlaModels.LocationsDb import LocationDB, AllBarsDB
+from DATABASE.SqlaModels.LocationsDb import LocationDB
 from datetime import datetime, timezone
 
 router = APIRouter(

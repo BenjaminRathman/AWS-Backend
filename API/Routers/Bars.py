@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from API.Endpoint import verify_token
-from API.PydanticModels.LocationModels import Location, AllBars
+from API.PydanticModels.BarsModels import AllBars, AllBarsInfo
 from DATABASE.dbConnection import get_db
 from sqlalchemy.orm import Session
-from DATABASE.SqlaModels.LocationsDb import LocationDB, AllBarsDB
+from DATABASE.SqlaModels.BarsDb import AllBarsDB, AllBarsInfoDB
 from datetime import datetime, timezone
 from uuid import UUID
 
@@ -41,3 +41,13 @@ async def delete_bar(BarId: UUID, db: Session = Depends(get_db)):
     db.delete(bar_to_delete)
     db.commit()
     return bar_to_delete
+
+#AllBarInfo
+
+@router.post("/createBarInfo")
+async def create_bar_info(bar_info: AllBarsInfo, db: Session = Depends(get_db)):
+    new_bar_info = AllBarsInfoDB(**bar_info.model_dump())
+    db.add(new_bar_info)
+    db.commit()
+    db.refresh(new_bar_info)
+    return new_bar_info
