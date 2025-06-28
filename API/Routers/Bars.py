@@ -51,3 +51,15 @@ async def create_bar_info(bar_info: AllBarsInfo, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_bar_info)
     return new_bar_info
+
+@router.get("/getBarInfo/{BarId}", response_model=AllBarsInfo)
+async def get_bar_info(BarId: UUID, db: Session = Depends(get_db)):
+    bar_info = db.query(AllBarsInfoDB).filter(AllBarsInfoDB.BarId == BarId).first()
+    if not bar_info:
+        raise HTTPException(status_code=404, detail="Bar info not found")
+    return bar_info
+
+@router.get("/allBarInfo", response_model=list[AllBarsInfo])
+async def get_all_bar_info(db: Session = Depends(get_db)):
+    bar_info = db.query(AllBarsInfoDB).all()
+    return bar_info

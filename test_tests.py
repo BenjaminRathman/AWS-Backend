@@ -242,4 +242,30 @@ def test_create_bar_info(client):
     assert data["BarName"] == payload["BarName"]
     assert data["Description"] == payload["Description"]
     assert data["WeeklySpecials"] == payload["WeeklySpecials"]
+
+def test_get_existing_bar_info(client):
+    existing_bar_id = "223e4567-e89b-12d3-a456-426614174000"
+
+    response = client.get(f"/bars/getBarInfo/{existing_bar_id}")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["BarId"] == existing_bar_id
+    assert "LocationId" in data
+    assert "BarName" in data
+    assert "Description" in data
+    assert "WeeklySpecials" in data
     
+def test_get_all_bar_info(client):
+    response = client.get("/bars/allBarInfo")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    
+    if response.json():
+        bar_info = response.json()[0]
+        assert "BarId" in bar_info
+        assert "LocationId" in bar_info
+        assert "BarName" in bar_info
+        assert "Description" in bar_info
+        assert "WeeklySpecials" in bar_info
+        
