@@ -119,8 +119,8 @@ def test_delete_user(client):
 
 def test_create_location(client):
     payload = {
-        "LocationId": 1,
-        "LocationName": "Downtown Park"
+        "LocationId": 2,
+        "LocationName": "Downtown2 Park"
     }
 
     response = client.post("/locations/createLocation", json=payload)
@@ -129,7 +129,7 @@ def test_create_location(client):
     data = response.json()
 
     assert "LocationId" in data
-    assert data["LocationName"] == "Downtown Park"
+    assert data["LocationName"] == "Downtown2 Park"
     
     
     
@@ -169,3 +169,11 @@ def test_update_location(client):
     data = response.json()
     assert data["LocationId"] == location_id_to_update
     assert data["LocationName"] == new_location_name
+    
+def test_delete_location(client):
+    location_id_to_delete = 2
+    
+    response = client.delete(f"/locations/deleteLocation/{location_id_to_delete}")
+    
+    assert response.status_code == 200
+    assert response.json()["LocationId"] == location_id_to_delete

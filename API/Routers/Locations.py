@@ -56,3 +56,12 @@ async def update_location(LocationId: int, location: Location, db: Session = Dep
     db.commit()
     db.refresh(location_to_update)
     return location_to_update
+
+@router.delete("/deleteLocation/{LocationId}", response_model=Location)
+async def delete_location(LocationId: int, db: Session = Depends(get_db)):
+    location_to_delete = db.query(LocationDB).filter(LocationDB.LocationId == LocationId).first()
+    if not location_to_delete:
+        raise HTTPException(status_code=404, detail="Location not found")
+    db.delete(location_to_delete)
+    db.commit()
+    return location_to_delete
