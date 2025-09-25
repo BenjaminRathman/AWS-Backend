@@ -21,9 +21,6 @@ redis==5.0.1
 boto3==1.34.0
 botocore==1.34.0
 
-# Firebase
-firebase-admin==6.2.0
-google-cloud-firestore==2.13.1
 
 # Authentication
 authlib==1.2.1
